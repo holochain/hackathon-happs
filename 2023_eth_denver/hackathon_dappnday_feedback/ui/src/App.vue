@@ -5,8 +5,16 @@
     </div>
     <div v-else>
       <div id="content" style="display: flex; flex-direction: column; flex: 1;">
-        <div><CreateSubmission /></div>
-        <div><AllSubmissions /></div>
+        <h2></h2>
+
+        <div v-if="showCreate">
+          <CreateSubmission @submissionCreated="submissionCreated"/>
+          <button @click="showResults">show results</button>
+        </div>
+        <div v-if="showSubmissions">
+          <AllSubmissions/>
+          <button @click="showForm">Submit Response</button>
+        </div>
       </div>
     </div>
   </div>
@@ -26,11 +34,28 @@ export default defineComponent({
   data(): {
     client: AppAgentClient | undefined;
     loading: boolean;
+    showCreate: boolean;
+    showSubmissions: boolean;
   } {
     return {
       client: undefined,
       loading: true,
+      showCreate: true,
+      showSubmissions: false,
     };
+  },
+  methods: {
+    showResults() {
+      this.showCreate = false;
+      this.showSubmissions = true;
+    },
+    showForm() {
+      this.showCreate = true;
+      this.showSubmissions = false;
+    },
+    submissionCreated() {
+      this.showResults();
+    }
   },
   async mounted() {
     // We pass '' as url because it will dynamically be replaced in launcher environments

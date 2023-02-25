@@ -6,8 +6,10 @@
   <div v-else style="display: flex; flex-direction: column">
     <span v-if="error">Error fetching the submissions: {{error.data.data}}.</span>
     <div v-else-if="hashes && hashes.length > 0" style="margin-bottom: 8px">
-      <SubmissionDetail 
-        v-for="hash in hashes" 
+      <SubmissionSummary :records="records"></SubmissionSummary>
+
+      <SubmissionDetail
+        v-for="hash in hashes"
         :submission-hash="hash"
         @submission-deleted="fetchSubmission()"
       >
@@ -24,23 +26,27 @@ import { decode } from '@msgpack/msgpack';
 import { AppAgentClient, NewEntryAction, Record, AgentPubKey, EntryHash, ActionHash } from '@holochain/client';
 import '@material/mwc-circular-progress';
 import SubmissionDetail from './SubmissionDetail.vue';
+import SubmissionSummary from "./SubmissionSummary.vue";
+
 import { FeedbackSignal } from './types';
 
 export default defineComponent({
   components: {
-    SubmissionDetail
+    SubmissionDetail,
+    SubmissionSummary
   },
-  data(): { hashes: Array<ActionHash> | undefined; loading: boolean; error: any } {
+  data(): { hashes: Array<ActionHash> | undefined; loading: boolean; error: any, records: any } {
     return {
       hashes: undefined,
       loading: true,
-      error: undefined
+      error: undefined,
+      records: [],
     }
   },
   async mounted() {
     await this.fetchSubmission();
     toRaw(this.client).on('signal', signal => {
-      if (signal.zome_name !== 'feedback') return; 
+      if (signal.zome_name !== 'feedback') return;
       const payload = signal.payload as FeedbackSignal;
       if (payload.type !== 'EntryCreated') return;
       if (payload.app_entry.type !== 'Submission') return;
@@ -57,6 +63,7 @@ export default defineComponent({
           fn_name: 'get_all_submissions',
           payload: null,
         });
+        this.records = records
         this.hashes = records.map(r => r.signed_action.hashed.hash);
       } catch (e) {
         this.error = e;
