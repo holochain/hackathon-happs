@@ -1,0 +1,18 @@
+---
+manifest_version: "1"
+name: hackathon_dappnday_feedback
+description: ~
+roles:
+  - name: feedback
+    provisioning:
+      strategy: create
+      deferred: false
+    dna:
+      bundled: "../dnas/feedback/workdir/feedback.dna"
+      modifiers:
+        network_seed: ~
+        properties: ~
+        origin_time: ~
+        quantum_time: ~
+      version: ~
+      clone_limit: 0

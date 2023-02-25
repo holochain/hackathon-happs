@@ -1,0 +1,19 @@
+---
+manifest_version: "1"
+name: feedback
+integrity:
+  network_seed: ~
+  properties: ~
+  origin_time: 1677363219756994
+  zomes:
+    - name: feedback_integrity
+      hash: ~
+      bundled: "../../../target/wasm32-unknown-unknown/release/feedback_integrity.wasm"
+      dependencies: ~
+coordinator:
+  zomes:
+    - name: feedback
+      hash: ~
+      bundled: "../../../target/wasm32-unknown-unknown/release/feedback.wasm"
+      dependencies:
+        - name: feedback_integrity

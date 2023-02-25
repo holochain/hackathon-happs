@@ -1,0 +1,7 @@
+---
+manifest_version: "1"
+name: hackathon_dappnday_feedback
+ui:
+  bundled: "../ui/dist.zip"
+happ_manifest:
+  bundled: "./hackathon_dappnday_feedback.happ"
