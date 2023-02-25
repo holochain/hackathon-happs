@@ -1,0 +1,1 @@
+A repo for storing hApps built at various hackathons and training events
