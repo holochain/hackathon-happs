@@ -1,0 +1,18 @@
+---
+manifest_version: "1"
+name: dapp_in_a_day_feedback
+description: ~
+roles:
+  - name: questions
+    provisioning:
+      strategy: create
+      deferred: false
+    dna:
+      bundled: "../dnas/questions/workdir/questions.dna"
+      modifiers:
+        network_seed: ~
+        properties: ~
+        origin_time: ~
+        quantum_time: ~
+      version: ~
+      clone_limit: 0

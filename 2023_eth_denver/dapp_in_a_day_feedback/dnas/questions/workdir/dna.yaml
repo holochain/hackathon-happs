@@ -1,0 +1,19 @@
+---
+manifest_version: "1"
+name: questions
+integrity:
+  network_seed: ~
+  properties: ~
+  origin_time: 1677347927424320
+  zomes:
+    - name: questions_integrity
+      hash: ~
+      bundled: "../../../target/wasm32-unknown-unknown/release/questions_integrity.wasm"
+      dependencies: ~
+coordinator:
+  zomes:
+    - name: questions
+      hash: ~
+      bundled: "../../../target/wasm32-unknown-unknown/release/questions.wasm"
+      dependencies:
+        - name: questions_integrity

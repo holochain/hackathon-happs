@@ -1,0 +1,7 @@
+---
+manifest_version: "1"
+name: dapp_in_a_day_feedback
+ui:
+  bundled: "../ui/dist.zip"
+happ_manifest:
+  bundled: "./dapp_in_a_day_feedback.happ"
