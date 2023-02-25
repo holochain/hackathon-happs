@@ -1,12 +1,15 @@
 <template>
-  <div>{{ label }}</div>
-  <div style="display: flex;">
-    <div v-for="row in transformed">
-      <div v-for="cell in row" style="width: 10px; height: 10px">
-        {{ cell }}
-      </div>
+  <div>
+    <div style="display: flex; flex-direction: column">
+      <div v-for="row in transformed" style="display: flex;">
+        <span v-for="cell in row" style="flex-basis: 15px; height: 15px">
+          {{ cell }}
+        </span>
+      </div><br/>
     </div>
   </div>
+  <div>{{ label }}</div>
+  <hr/>
 </template>
 <script lang="ts">
 import {defineComponent, inject, ComputedRef, defineProps} from 'vue';
@@ -37,16 +40,18 @@ export default defineComponent({
   computed: {
     transformed: function(): Array<Array<string>> {
       const output = []
-      
+
       const max = Math.max(...(this.values as Array<number>))
 
       for (let i = max -1; i >=0 ; i--) {
         const row = []
-        for (let j = 0; j < 5; j++) {          
-          row.push((this.values[j] as number) <= i ? '#' : ' ')
+        for (let j = 0; j < 5; j++) {
+          row.push((this.values[j] as number) <= i ? ' ' : '#')
         }
         output.push(row)
       }
+
+      console.log(this.label, this.values, output)
 
       return output
     }
