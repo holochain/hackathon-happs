@@ -1,7 +1,9 @@
 <template>
   <h2>Summary...</h2>
   <div>{{records.length}} Responses</div>
-  <div>{{histogram5('ease')}} Responses</div>
+  <div>{{histogram('difficulty')}} Responses</div>
+  <div>{{histogram('dev_experience')}} Responses</div>
+  <div>{{histogram('star_rating')}} Responses</div>
   <hr/>
 </template>
 <script lang="ts">
@@ -16,7 +18,7 @@ function enumToInt(menum: any): number  {
     case "Three": return 2;
     case "Four": return 3;
     case "Five": return 4;
-    default :   return -1;
+    default: throw new Error(`Unexpected enum value ${menum.type}`)
   }
 }
 
@@ -28,12 +30,12 @@ export default defineComponent({
     },
   },
   methods: {
-    histogram5: function(key: string) {
+    histogram: function(key: 'difficulty' | 'dev_experience' | 'star_rating') {
       let hist = [0, 0, 0, 0, 0];
       for (let i = 0; i < this.records.length; i++) {
         let hash = decode(((this.records[i] as any).entry as any).Present.entry) as Submission
         console.log(hash);
-        hist[enumToInt(hash.difficulty)] += 1;
+        hist[enumToInt(hash[key])] += 1;
       }
       return hist;
     }
