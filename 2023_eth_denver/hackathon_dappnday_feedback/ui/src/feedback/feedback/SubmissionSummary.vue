@@ -1,15 +1,16 @@
 <template>
   <h2>Summary...</h2>
   <div>{{records.length}} Responses</div>
-  <div>{{histogram('difficulty')}} Responses</div>
-  <div>{{histogram('dev_experience')}} Responses</div>
-  <div>{{histogram('star_rating')}} Responses</div>
+  <Histogram :values="histogram('difficulty')" label="Difficulty" />
+  <Histogram :values="histogram('dev_experience')" label="Level of Experience" />
+  <Histogram :values="histogram('star_rating')" label="Overall" />
   <hr/>
 </template>
 <script lang="ts">
 import {defineComponent, inject, ComputedRef, defineProps} from 'vue';
 import {decode} from '@msgpack/msgpack';
 import {Submission} from "./types";
+import Histogram from "./Histogram.vue";
 
 function enumToInt(menum: any): number  {
   switch(menum.type) {
@@ -23,6 +24,9 @@ function enumToInt(menum: any): number  {
 }
 
 export default defineComponent({
+  components: {
+    Histogram
+  },
   props: {
     records: {
       type: Array,
