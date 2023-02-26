@@ -4,7 +4,6 @@
   <Histogram :values="histogram('difficulty')" label="Difficulty" />
   <Histogram :values="histogram('dev_experience')" label="Level of Experience" />
   <Histogram :values="histogram('star_rating')" label="Overall" />
-  <hr/>
 </template>
 <script lang="ts">
 import {defineComponent, inject, ComputedRef, defineProps} from 'vue';

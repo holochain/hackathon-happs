@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div style="display: flex; flex-direction: column">
+    <div style="display: flex; flex-direction: column; border: 1px solid; width: 78px; padding: 5px;">
       <div v-for="row in transformed" style="display: flex;">
-        <span v-for="cell in row" style="flex-basis: 15px; height: 15px">
+        <div v-for="cell in row" style="flex-basis: 15px; flex-grow: 0; flex-shrink: 0; height: 15px">
           {{ cell }}
-        </span>
-      </div><br/>
+        </div>
+      </div>
     </div>
   </div>
   <div>{{ label }}</div>
@@ -50,6 +50,9 @@ export default defineComponent({
         }
         output.push(row)
       }
+
+      output.push(['-','-','-','-','-'])
+      output.push(['1','2','3','4','5'])
 
       console.log(this.label, this.values, output)
 
